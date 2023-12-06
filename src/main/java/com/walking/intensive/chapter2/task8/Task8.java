@@ -3,7 +3,7 @@ package com.walking.intensive.chapter2.task8;
 import java.util.Scanner;
 
 /**
- * Условие: <a href="http://geometry-math.ru/homework/Java-ticket.html">ссылка</a> Добираясь в школу
+ * Условие: <a href="http://geometry-math.ru/homework/Java-ticket.html">ссылка</a>
  */
 public class Task8 {
 
@@ -24,6 +24,7 @@ public class Task8 {
         for (int i = 0; i <= 999999; i++) {
             int firstThreeDigits = i / 1000;
             int secondThreeDigits = i % 1000;
+
             if (getSumOfDigits(firstThreeDigits) == getSumOfDigits(secondThreeDigits)) {
                 count++;
             }
