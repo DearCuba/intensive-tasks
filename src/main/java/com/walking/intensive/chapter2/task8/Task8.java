@@ -7,54 +7,56 @@ import java.util.Scanner;
  */
 public class Task8 {
 
-    public static void main(String[] args) {
-        System.out.printf("Вероятность выпадения счастливого билета составит: %.3f\n",
-            getHappyTicketChance());
+  public static void main(String[] args) {
+    System.out.printf("Вероятность выпадения счастливого билета составит: %.3f\n",
+        getHappyTicketChance());
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите номер билета: ");
-        int ticketNumber = scanner.nextInt();
-        scanner.close();
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Введите номер билета: ");
+    int ticketNumber = scanner.nextInt();
+    scanner.close();
 
-        System.out.println(checkHappyTicket(ticketNumber));
+    System.out.println(checkHappyTicket(ticketNumber));
+  }
+
+  static double getHappyTicketChance() {
+    int count = 0;
+
+    for (int i = 0; i <= 999999; i++) {
+      int firstThreeDigits = i / 1000;
+      int secondThreeDigits = i % 1000;
+
+      if (getSumOfDigits(firstThreeDigits) == getSumOfDigits(secondThreeDigits)) {
+        count++;
+      }
     }
+    return (double) count / 1000000;
+  }
 
-    static double getHappyTicketChance() {
-        int count = 0;
-        for (int i = 0; i <= 999999; i++) {
-            int firstThreeDigits = i / 1000;
-            int secondThreeDigits = i % 1000;
+  static String checkHappyTicket(int ticketNumber) {
+    int firstThreeDigitsOfTicket = ticketNumber / 1000;
+    int secondThreeDigitsOfTicket = ticketNumber % 1000;
+    int sumFirstThreeDigits = 0;
+    int sumSecondThreeDigits = 0;
 
-            if (getSumOfDigits(firstThreeDigits) == getSumOfDigits(secondThreeDigits)) {
-                count++;
-            }
-        }
-        return (double) count / 1000000;
+    for (int i = 0; i < 3; i++) {
+      sumFirstThreeDigits += firstThreeDigitsOfTicket % 10;
+      sumSecondThreeDigits += secondThreeDigitsOfTicket % 10;
+      firstThreeDigitsOfTicket /= 10;
+      secondThreeDigitsOfTicket /= 10;
     }
+    return (sumFirstThreeDigits == sumSecondThreeDigits) ? "Введенный билет является счастливым."
+        : "Введенный билет не является счастливым.";
+  }
 
-    static String checkHappyTicket(int ticketNumber) {
-        int firstThreeDigitsOfTicket = ticketNumber / 1000;
-        int secondThreeDigitsOfTicket = ticketNumber % 1000;
-        int sumFirstThreeDigits = 0;
-        int sumSecondThreeDigits = 0;
+  private static int getSumOfDigits(int num) {
+    int sum = 0;
 
-        for (int i = 0; i < 3; i++) {
-            sumFirstThreeDigits += firstThreeDigitsOfTicket % 10;
-            sumSecondThreeDigits += secondThreeDigitsOfTicket % 10;
-            firstThreeDigitsOfTicket /= 10;
-            secondThreeDigitsOfTicket /= 10;
-        }
-        return (sumFirstThreeDigits == sumSecondThreeDigits) ? "Введенный билет является счастливым."
-            : "Введенный билет не является счастливым.";
+    while (num > 0) {
+      sum += num % 10;
+      num /= 10;
     }
-
-    private static int getSumOfDigits(int num) {
-        int sum = 0;
-        while (num > 0) {
-            sum += num % 10;
-            num /= 10;
-        }
-        return sum;
-    }
+    return sum;
+  }
 }
 
